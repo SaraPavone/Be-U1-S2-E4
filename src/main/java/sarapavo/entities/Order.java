@@ -1,6 +1,7 @@
 package sarapavo.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,37 +15,24 @@ public class Order {
     private LocalDate deliveryDate;
 
     //COSTRUTTORE
-    public Order(List<Product> products, Customer customer, Long id, String status, LocalDate deliveryDate) {
-        this.products = products;
+    public Order(Customer customer) {
+        this.products = new ArrayList<>();
         this.customer = customer;
-        this.id = id;
-        this.status = status;
+        this.status = "We're working on it!";
         this.orderDate = LocalDate.now();
-        this.deliveryDate = LocalDate.p;
+        this.deliveryDate = LocalDate.now().plusWeeks(1);
     }
 
     public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getStatus() {
@@ -59,10 +47,6 @@ public class Order {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
-    }
-
     public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
@@ -70,6 +54,18 @@ public class Order {
     public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
+
+
+    //Aggiungo il singolo prodotto alla lista products
+    public void addProductToList(Product p) {
+        products.add(p);
+    }
+
+    //Totale dell'ordine
+    public double getTotal() {
+        return this.products.stream().mapToDouble(Product::getPrice).sum();
+    }
+
 
     @Override
     public String toString() {
@@ -80,6 +76,6 @@ public class Order {
                 ", status='" + status + '\'' +
                 ", orderDate=" + orderDate +
                 ", deliveryDate=" + deliveryDate +
-                '}';
+                ", Total: " + getTotal() + "$}";
     }
 }

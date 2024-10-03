@@ -1,5 +1,7 @@
 package sarapavo.entities;
 
+import java.util.Random;
+
 public class Product {
     private String name;
     private Long id;
@@ -8,11 +10,12 @@ public class Product {
 
 
     //COSTRUTTORE
-    public Product(String name, Long id, String category, Double price) {
+    public Product(String name, String category, Double price) {
         this.name = name;
-        this.id = id;
         this.category = category;
         this.price = price;
+        Random random = new Random();
+        this.id = random.nextLong();
     }
 
     public String getName() {
@@ -35,9 +38,6 @@ public class Product {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCategory() {
         return category;
@@ -45,5 +45,13 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return name +
+                "-ID: " + id +
+                "-CATEGORY: " + category +
+                "-PRICE: " + price;
     }
 }
